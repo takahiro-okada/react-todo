@@ -3,28 +3,34 @@ import "./styles.css";
 
 export const App = () => {
   const [todoText, setTodoText] = useState("");
-  const [incompleteTodos, setIncompleteTodos] = useState(["aaaaa", "iiiiii"]);
-  const [completeTodos, setCompleteTodos] = useState(["adada", "ooooooo"]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
+
+  // 追加ボタン
   const onClickAdd = () => {
     if (todoText === "") return;
     const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);
     setTodoText("");
   };
+
+  // 削除ボタン
   const onClickDelete = (index) => {
     const newTodos = [...incompleteTodos];
     newTodos.splice(index, 1);
     setIncompleteTodos(newTodos);
   };
+
+  // 完了ボタン
   const onClickComplete = (index) => {
     const newIncompleteTodos = [...incompleteTodos];
     newIncompleteTodos.splice(index, 1);
 
-    const newCompleteTOdos = [...completeTodos, incompleteTodos[index]];
-    setIncompleteTodos(newCompleteTOdos);
-    setCompleteTodos(newCompleteTOdos);
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
   };
 
   // 戻すボタン
@@ -70,7 +76,7 @@ export const App = () => {
             return (
               <div className="list-row">
                 <li>{todo}</li>
-                <button onclick={() => onClickBack(index)}>戻す</button>
+                <button onClick={() => onClickBack(index)}>戻す</button>
               </div>
             );
           })}
